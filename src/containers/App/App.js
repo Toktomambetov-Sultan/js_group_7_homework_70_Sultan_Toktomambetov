@@ -1,20 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AppStyles.js";
-import {
-  Container,
-  Grid,
-  Button,
-  List,
-  Typography,
-  Modal,
-} from "@material-ui/core";
+import { Container, Grid, Button, List, Typography } from "@material-ui/core";
 import { constant } from "../../constants";
 import useStyle from "./AppStyles.js";
 import DishItem from "../../components/DishItem/DishItem.js";
-import { addDishToCart, deleteDishFromCart } from "../../store/actions";
+import {
+  addDishToCart,
+  deleteDishFromCart,
+  changeModalState,
+  fetchPost,
+} from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import CartListItem from "../../components/CartListItem/CartListItem.js";
 import MyModal from "../../components/Modal/MyModal.js";
+import Form from "../../components/Form/Form.js";
 
 function App() {
   const classes = useStyle();
@@ -22,7 +21,18 @@ function App() {
   const state = useSelector((state) => state);
   const addDishToCartHandler = (id) => dispatch(addDishToCart(id));
   const deleteDishFromCartHandler = (id) => dispatch(deleteDishFromCart(id));
-  console.log(state);
+  const changeModalStateHandler = (bool) => dispatch(changeModalState(bool));
+  const [formPhone, setFormPhone] = useState("");
+  const [formEmail, setFormEmail] = useState("");
+  const [formName, setFormName] = useState("");
+  const postRequest = () => {
+    dispatch(
+      fetchPost({
+        clientData: { phone: formPhone, name: formName, email: formEmail },
+        order: state.dishesInCart,
+      }),
+    );
+  };
   return (
     <Container>
       <Grid container justify="space-between" className={classes.container}>
@@ -63,14 +73,28 @@ function App() {
                 variant="contained"
                 disabled={!state.totalPrice}
                 color="primary"
+                onClick={() => changeModalStateHandler(true)}
               >
-                Send
+                Place order
               </Button>
             </div>
           </div>
         </Grid>
       </Grid>
-      <MyModal />
+      <MyModal
+        isOpen={state.isModalOpen}
+        onContinue={postRequest}
+        onCancel={() => changeModalStateHandler(false)}
+      >
+        <Form
+          formEmail={formEmail}
+          formName={formName}
+          formPhone={formPhone}
+          setFormEmail={setFormEmail}
+          setFormName={setFormName}
+          setFormPhone={setFormPhone}
+        />
+      </MyModal>
     </Container>
   );
 }

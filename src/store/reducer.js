@@ -1,9 +1,11 @@
-import { ADD_DISH, DELETE_DISH } from "./actionsType";
+import { ADD_DISH, DELETE_DISH, CHANGE_MODAL_STATE } from "./actionsType";
 import { constant } from "../constants";
 
 const initialState = {
   totalPrice: 0,
   dishesInCart: {},
+  isModalOpen: false,
+  isLoading: false,
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -35,6 +37,8 @@ const reducer = (state = initialState, action) => {
           state.totalPrice -
           +constant.dishes.find((elem) => elem.id === action.dishId).price,
       };
+    case CHANGE_MODAL_STATE:
+      return { ...state, isModalOpen: action.isOpen };
     default:
       return { ...state };
   }

@@ -38,14 +38,14 @@ const MyModal = ({ isOpen, children, onContinue, onCancel }) => {
   const mainCls = isOpen ? "" : classes.closeModal;
   return (
     <div className={mainCls}>
-      <div className={classes.darkBack}></div>
+      <div className={classes.darkBack} onClick={onCancel} />
       <div className={classes.front}>
         {children}
         <div className="btns">
-          <Button variant="contained" color="secondary">
+          <Button variant="contained" color="secondary" onClick={onCancel}>
             canсel
           </Button>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={onContinue}>
             continue
           </Button>
         </div>
