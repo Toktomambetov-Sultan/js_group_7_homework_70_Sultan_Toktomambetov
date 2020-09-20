@@ -1,7 +1,16 @@
 import React from "react";
 import "./App.css";
-import { Container, Grid, makeStyles, Card, Button } from "@material-ui/core";
-import { blue, grey } from "@material-ui/core/colors";
+import {
+  Container,
+  Grid,
+  makeStyles,
+  Card,
+  Button,
+  List,
+  ListItem,
+  Typography,
+} from "@material-ui/core";
+import { blue, grey, yellow } from "@material-ui/core/colors";
 import { constant } from "../../constants";
 
 const useStyle = makeStyles((theme) => ({
@@ -55,6 +64,9 @@ const useStyle = makeStyles((theme) => ({
       },
     },
   },
+  orderListItem: {
+    borderBottom: "2px solid " + yellow[900],
+  },
 }));
 
 function App() {
@@ -88,7 +100,24 @@ function App() {
         </Grid>
         <Grid item xs={4} className={classes.section}>
           <h3 className="title">Order</h3>
-          <div className="bottom"></div>
+          <div className="bottom">
+            <Typography variant="h5">List of dishes in cart: </Typography>
+            <List>
+              <ListItem className={classes.orderListItem}>
+                <Grid container justify="space-between">
+                  <Grid item>Плов x1</Grid>
+                  <Grid item>210</Grid>
+                </Grid>
+              </ListItem>
+              <ListItem className={classes.orderListItem}>
+                <Grid container justify="space-between">
+                  <Grid item>Плов x1</Grid>
+                  <Grid item>210</Grid>
+                </Grid>
+              </ListItem>
+            </List>
+            <Typography variant="h6">Total price: 100</Typography>
+          </div>
         </Grid>
       </Grid>
     </Container>
