@@ -4,7 +4,7 @@ import { Container, Grid, Button, List, Typography } from "@material-ui/core";
 import { constant } from "../../constants";
 import useStyle from "./AppStyles.js";
 import DishItem from "../../components/DishItem/DishItem.js";
-import { addDishToCart } from "../../store/actions";
+import { addDishToCart, deleteDishFromCart } from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import CartListItem from "../../components/CartListItem/CartListItem.js";
 
@@ -13,6 +13,8 @@ function App() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const addDishToCartHandler = (id) => dispatch(addDishToCart(id));
+  const deleteDishFromCartHandler = (id) => dispatch(deleteDishFromCart(id));
+  console.log(state);
   return (
     <Container>
       <Grid container justify="space-between" className={classes.container}>
@@ -40,6 +42,7 @@ function App() {
                   key={key}
                   count={state.dishesInCart[key]}
                   id={key}
+                  onClick={() => deleteDishFromCartHandler(key)}
                 />
               ))}
             </List>

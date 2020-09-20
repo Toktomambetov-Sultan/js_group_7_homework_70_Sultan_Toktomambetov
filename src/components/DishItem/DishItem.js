@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Card } from "@material-ui/core";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
-import { constant } from "../../constants";
 
 const DishItem = ({ dish, onClick }) => {
   return (
