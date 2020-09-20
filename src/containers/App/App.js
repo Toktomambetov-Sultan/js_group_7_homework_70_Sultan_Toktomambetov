@@ -1,77 +1,18 @@
 import React from "react";
-import "./App.css";
-import {
-  Container,
-  Grid,
-  makeStyles,
-  Card,
-  Button,
-  List,
-  ListItem,
-  Typography,
-} from "@material-ui/core";
-import { blue, grey, yellow } from "@material-ui/core/colors";
+import "./AppStyles.js";
+import { Container, Grid, Button, List, Typography } from "@material-ui/core";
 import { constant } from "../../constants";
-
-const useStyle = makeStyles((theme) => ({
-  container: {
-    padding: theme.spacing(2, 0),
-  },
-  section: {
-    "& h3.title": {
-      border: "4px solid #00d0ff",
-      background: blue[100],
-      padding: theme.spacing(1, 2),
-      color: grey[900],
-      margin: theme.spacing(0),
-      fontSize: theme.spacing(4),
-      borderBottom: "none",
-    },
-    "& .bottom": {
-      border: "4px solid " + grey[400],
-      background: grey[100],
-      borderTop: "none",
-      padding: theme.spacing(2, 1),
-    },
-  },
-  dishes: {
-    "& .dish": {
-      width: "100%",
-      padding: theme.spacing(0.5, 2),
-      "& .inner": {
-        border: "1px solid" + grey[900],
-        background: blue[100],
-        padding: theme.spacing(1, 1),
-        display: "flex",
-        alignItems: "center",
-      },
-      "& .img": {
-        width: theme.spacing(10),
-        height: theme.spacing(10),
-        border: "2px solid " + blue[700],
-      },
-      "& img": {
-        width: "100%",
-        height: "100%",
-      },
-      "& .info": {
-        flexGrow: "1",
-        textAlign: "center",
-      },
-      "& .name": {
-        margin: theme.spacing(1, 0),
-        fontSize: theme.spacing(3),
-      },
-    },
-  },
-  orderListItem: {
-    borderBottom: "2px solid " + yellow[900],
-  },
-}));
+import useStyle from "./AppStyles.js";
+import DishItem from "../../components/DishItem/DishItem.js";
+import { addDishToCart } from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import CartListItem from "../../components/CartListItem/CartListItem.js";
 
 function App() {
   const classes = useStyle();
-
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+  const addDishToCartHandler = (id) => dispatch(addDishToCart(id));
   return (
     <Container>
       <Grid container justify="space-between" className={classes.container}>
@@ -80,20 +21,11 @@ function App() {
           <div className="bottom">
             <div className={classes.dishes}>
               {constant.dishes.map((dish) => (
-                <div className="dish" key={dish.id}>
-                  <Card className="inner">
-                    <div className="img">
-                      <img src={dish.url} alt={dish.name} />
-                    </div>
-                    <div className="info">
-                      <h4 className="name">{dish.name}</h4>
-                      <span className="price">{dish.price} KGS</span>
-                    </div>
-                    <Button variant="contained" color="secondary">
-                      add to cart
-                    </Button>
-                  </Card>
-                </div>
+                <DishItem
+                  dish={dish}
+                  key={dish.id}
+                  onClick={() => addDishToCartHandler(dish.id)}
+                />
               ))}
             </div>
           </div>
@@ -103,20 +35,23 @@ function App() {
           <div className="bottom">
             <Typography variant="h5">List of dishes in cart: </Typography>
             <List>
-              <ListItem className={classes.orderListItem}>
-                <Grid container justify="space-between">
-                  <Grid item>Плов x1</Grid>
-                  <Grid item>210</Grid>
-                </Grid>
-              </ListItem>
-              <ListItem className={classes.orderListItem}>
-                <Grid container justify="space-between">
-                  <Grid item>Плов x1</Grid>
-                  <Grid item>210</Grid>
-                </Grid>
-              </ListItem>
+              {Object.keys(state.dishesInCart).map((key) => (
+                <CartListItem
+                  key={key}
+                  count={state.dishesInCart[key]}
+                  id={key}
+                />
+              ))}
             </List>
-            <Typography variant="h6">Total price: 100</Typography>
+            <Typography variant="h6">Delivery: 100</Typography>
+            <Typography variant="h6">
+              Total price: {state.totalPrice}
+            </Typography>
+            <div className="btn-block">
+              <Button variant="contained" color="primary">
+                Send
+              </Button>
+            </div>
           </div>
         </Grid>
       </Grid>
