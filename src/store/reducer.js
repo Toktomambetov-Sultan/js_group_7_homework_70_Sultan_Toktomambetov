@@ -21,7 +21,6 @@ const reducer = (state = initialState, action) => {
     case DELETE_DISH:
       if (state.dishesInCart[action.dishId] === 1) {
         delete state.dishesInCart[action.dishId];
-
         return {
           ...state,
         };

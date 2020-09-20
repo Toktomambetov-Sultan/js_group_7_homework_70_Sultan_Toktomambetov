@@ -1,12 +1,20 @@
 import React from "react";
 import "./AppStyles.js";
-import { Container, Grid, Button, List, Typography } from "@material-ui/core";
+import {
+  Container,
+  Grid,
+  Button,
+  List,
+  Typography,
+  Modal,
+} from "@material-ui/core";
 import { constant } from "../../constants";
 import useStyle from "./AppStyles.js";
 import DishItem from "../../components/DishItem/DishItem.js";
 import { addDishToCart, deleteDishFromCart } from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import CartListItem from "../../components/CartListItem/CartListItem.js";
+import MyModal from "../../components/Modal/MyModal.js";
 
 function App() {
   const classes = useStyle();
@@ -51,13 +59,18 @@ function App() {
               Total price: {state.totalPrice}
             </Typography>
             <div className="btn-block">
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                disabled={!state.totalPrice}
+                color="primary"
+              >
                 Send
               </Button>
             </div>
           </div>
         </Grid>
       </Grid>
+      <MyModal />
     </Container>
   );
 }
