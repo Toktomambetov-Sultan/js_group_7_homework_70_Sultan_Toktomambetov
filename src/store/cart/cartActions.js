@@ -1,13 +1,13 @@
-import axiosOrder from "../axiosOrder";
+import axiosOrder from "../../axiosOrder";
 
-const {
+import {
   ADD_DISH,
   DELETE_DISH,
   CHANGE_MODAL_STATE,
   FETCH_REQUEST,
   FETCH_SUCCESS,
   FETCH_ERROR,
-} = require("./actionsType");
+} from "../actionsType";
 
 export const addDishToCart = (id) => {
   return {

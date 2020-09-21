@@ -1,5 +1,5 @@
-import { ADD_DISH, DELETE_DISH, CHANGE_MODAL_STATE } from "./actionsType";
-import { constant } from "../constants";
+import { ADD_DISH, DELETE_DISH, CHANGE_MODAL_STATE } from "../actionsType";
+import { constant } from "../../constants";
 
 const initialState = {
   totalPrice: 0,
@@ -7,7 +7,7 @@ const initialState = {
   isModalOpen: false,
   isLoading: false,
 };
-const reducer = (state = initialState, action) => {
+const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_DISH:
       return {
@@ -43,4 +43,4 @@ const reducer = (state = initialState, action) => {
       return { ...state };
   }
 };
-export default reducer;
+export default cartReducer;

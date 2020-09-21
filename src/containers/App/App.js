@@ -9,7 +9,7 @@ import {
   deleteDishFromCart,
   changeModalState,
   fetchPost,
-} from "../../store/actions";
+} from "../../store/cart/cartActions";
 import { useDispatch, useSelector } from "react-redux";
 import CartListItem from "../../components/CartListItem/CartListItem.js";
 import MyModal from "../../components/Modal/MyModal.js";
@@ -18,7 +18,7 @@ import Form from "../../components/Form/Form.js";
 function App() {
   const classes = useStyle();
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
+  const state = useSelector((state) => state.cartReducer);
   const addDishToCartHandler = (id) => dispatch(addDishToCart(id));
   const deleteDishFromCartHandler = (id) => dispatch(deleteDishFromCart(id));
   const changeModalStateHandler = (bool) => dispatch(changeModalState(bool));

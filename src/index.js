@@ -4,9 +4,15 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import App from "./containers/App/App";
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
-import reducer from "./store/reducer";
+import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
+import cartReducer from "./store/cart/cartReducer";
+import dishesReducer from "./store/dishes/dishesReducer";
+
+const reducer=combineReducers({
+  cartReducer,
+  dishesReducer,
+});
 
 const store = createStore(reducer, applyMiddleware(thunk));
 ReactDOM.render(
