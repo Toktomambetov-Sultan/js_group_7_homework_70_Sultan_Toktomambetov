@@ -15,6 +15,8 @@ import CartListItem from "../../components/CartListItem/CartListItem.js";
 import MyModal from "../../components/Modal/MyModal.js";
 import Form from "../../components/Form/Form.js";
 import { fetchGet } from "../../store/dishes/dishesActions";
+import PlaceOrderButton from "../../components/App/PlaceOrderButton/PlaceOrderButton.js";
+import OrderParam from "../../components/App/OrderParam/OrderParam";
 
 function App() {
   const classes = useStyle();
@@ -79,19 +81,13 @@ function App() {
                 />
               ))}
             </List>
-            <Typography variant="h6">Delivery: {cartState.delivery} KGS</Typography>
-            <Typography variant="h6">
-              Total price: {cartState.totalPrice} KGS
-            </Typography>
+            <OrderParam prop="Delivery" value={cartState.delivery} />
+            <OrderParam prop="Total price" value={cartState.totalPrice} />
             <div className="btn-block">
-              <Button
-                variant="contained"
+              <PlaceOrderButton
                 disabled={!cartState.totalPrice}
-                color="primary"
                 onClick={() => changeModalStateHandler(true)}
-              >
-                Place order
-              </Button>
+              />
             </div>
           </div>
         </Grid>
