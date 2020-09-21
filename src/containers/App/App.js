@@ -79,9 +79,9 @@ function App() {
                 />
               ))}
             </List>
-            <Typography variant="h6">Delivery: 100</Typography>
+            <Typography variant="h6">Delivery: {cartState.delivery} KGS</Typography>
             <Typography variant="h6">
-              Total price: {cartState.totalPrice}
+              Total price: {cartState.totalPrice} KGS
             </Typography>
             <div className="btn-block">
               <Button

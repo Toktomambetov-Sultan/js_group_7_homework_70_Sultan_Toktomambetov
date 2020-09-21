@@ -11,6 +11,7 @@ import {
 const initialState = {
   totalPrice: 0,
   dishesInCart: {},
+  delivery: 100,
   isModalOpen: false,
   isLoading: false,
   error: null,
@@ -18,6 +19,8 @@ const initialState = {
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_DISH:
+      const diff =
+        Object.keys(state.dishesInCart).length === 0 ? state.delivery : 0;
       return {
         ...state,
         dishesInCart: {
@@ -26,15 +29,19 @@ const cartReducer = (state = initialState, action) => {
         },
         totalPrice:
           state.totalPrice +
+          diff +
           +action.dishes.find((elem) => elem.id === action.dishId).price,
       };
     case DELETE_DISH:
       if (state.dishesInCart[action.dishId] === 1) {
+        const diff =
+          Object.keys(state.dishesInCart).length === 1 ? state.delivery : 0;
         delete state.dishesInCart[action.dishId];
         return {
           ...state,
           totalPrice:
             state.totalPrice -
+            diff -
             +action.dishes.find((elem) => elem.id === action.dishId).price,
         };
       }
