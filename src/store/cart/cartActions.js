@@ -7,25 +7,32 @@ import {
   FETCH_REQUEST,
   FETCH_SUCCESS,
   FETCH_ERROR,
+  DISHES_INIT_IN_CART,
 } from "../actionsType";
 
-export const addDishToCart = (id) => {
+export const addDishToCart = (id, dishes) => {
   return {
     type: ADD_DISH,
     dishId: id,
+    dishes,
   };
 };
-export const deleteDishFromCart = (id) => {
+export const deleteDishFromCart = (id, dishes) => {
   return {
     type: DELETE_DISH,
     dishId: id,
+    dishes,
   };
 };
 export const changeModalState = (bool) => {
-  console.log(bool);
   return {
     type: CHANGE_MODAL_STATE,
     isOpen: bool,
+  };
+};
+export const dishesInitInCart = () => {
+  return {
+    type: DISHES_INIT_IN_CART,
   };
 };
 const fetchRequest = () => {
@@ -34,8 +41,8 @@ const fetchRequest = () => {
 const fetchSuccess = () => {
   return { type: FETCH_SUCCESS };
 };
-const fetchError = () => {
-  return { type: FETCH_ERROR };
+const fetchError = (error) => {
+  return { type: FETCH_ERROR, error };
 };
 export const fetchPost = (data) => {
   return async (dispatch) => {

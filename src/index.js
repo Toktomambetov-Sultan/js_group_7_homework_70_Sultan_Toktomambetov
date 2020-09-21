@@ -9,9 +9,9 @@ import thunk from "redux-thunk";
 import cartReducer from "./store/cart/cartReducer";
 import dishesReducer from "./store/dishes/dishesReducer";
 
-const reducer=combineReducers({
-  cartReducer,
-  dishesReducer,
+const reducer = combineReducers({
+  dishes: dishesReducer,
+  cart: cartReducer,
 });
 
 const store = createStore(reducer, applyMiddleware(thunk));

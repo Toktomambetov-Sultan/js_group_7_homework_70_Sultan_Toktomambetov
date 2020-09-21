@@ -1,4 +1,4 @@
-export const constant = {
+const constant = {
   dishes: [
     {
       name: "pilaf",
