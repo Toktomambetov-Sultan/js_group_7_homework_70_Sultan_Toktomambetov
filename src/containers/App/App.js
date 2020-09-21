@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./AppStyles.js";
-import { Container, Grid, Button, List, Typography } from "@material-ui/core";
+import { Container, Grid, List, Typography } from "@material-ui/core";
 import useStyle from "./AppStyles.js";
 import DishItem from "../../components/DishItem/DishItem.js";
 import {
