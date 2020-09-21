@@ -49,7 +49,6 @@ const Form = (props) => {
         <OutlinedInput
           id="email"
           value={props.formEmail}
-          type="email"
           onChange={(e) => props.setFormEmail(e.target.value)}
           startAdornment={
             <InputAdornment position="start">{"->"}</InputAdornment>

@@ -25,6 +25,7 @@ function App() {
     dispatch(addDishToCart(id, dishesState.dishes));
   const deleteDishFromCartHandler = (id) =>
     dispatch(deleteDishFromCart(id, dishesState.dishes));
+
   const changeModalStateHandler = (bool) => dispatch(changeModalState(bool));
   const [formPhone, setFormPhone] = useState("");
   const [formEmail, setFormEmail] = useState("");
@@ -33,14 +34,18 @@ function App() {
     dispatch(fetchGet());
   }, [dispatch]);
   const postRequest = () => {
-    changeModalStateHandler(false);
-    dispatch(dishesInitInCart());
-    dispatch(
-      fetchPost({
-        clientData: { phone: formPhone, name: formName, email: formEmail },
-        order: cartState.dishesInCart,
-      }),
-    );
+    if (formEmail && formName && formEmail) {
+      changeModalStateHandler(false);
+      dispatch(dishesInitInCart());
+      dispatch(
+        fetchPost({
+          clientData: { phone: formPhone, name: formName, email: formEmail },
+          order: cartState.dishesInCart,
+        }),
+      );
+    } else {
+      alert("Some field is not filled!");
+    }
   };
 
   return (
